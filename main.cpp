@@ -23,7 +23,9 @@ void FenTree_Update(int FenTree[], int n, int idx, int val)
     idx = idx + 1;
     while (idx <= n)
     {
-        FenTree[idx] += val;
+        //Funcion actualizada:
+
+        //FenTree[idx] += val;
         idx += idx & (-idx);
     }
     //for (int i=1; i<=n; i++) cout << FenTree[i] << " ";
