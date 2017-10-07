@@ -50,7 +50,7 @@ BITreeValue calculate_difference(int val, int idx, BITreeValue FenTree[], int fr
     result.zeroes = 0;
     result.negatives = 0;
 
-    if( freq[idx - 1] == 0){// Si el valor viejo es igual a cero...
+    if(freq[idx - 1] == 0){// Si el valor viejo es igual a cero...
         if(val == 0){       // ...y el valor nuevo es cero: No aumentamos ningun contador.
             result.zeroes = 0;
             result.negatives = 0;
@@ -78,7 +78,7 @@ BITreeValue calculate_difference(int val, int idx, BITreeValue FenTree[], int fr
                 }
             }
         }else{                      //Si el valor viejo es negativo...
-            if(val == 0){           // ...y el valor nuevo es cero: restamos un negativo e aumentamos un zero.
+            if(val == 0){           // ...y el valor nuevo es cero: restamos un negativo e aumentamos un cero.
                 result.zeroes = 1;
                 result.negatives = -1;
             }else{
@@ -164,20 +164,26 @@ int main()
 
     ///////////////////////// Declaracion del arreglo de Xi //////////////////////////////
 
-    int arr_xi[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-    int n = sizeof(arr_xi)/sizeof(arr_xi[0]);
+    int *arr_xi = new int[N+1];
+    for (i = 1; i <= N; i++){
+        arr_xi[i] = 1; //Inicializamos el arreglo de Xi con todos los valores en 1
+        //cout << arr_xi[i] << " ";
+    }
 
-    ////////////////////// Inicializacion de el arbol de fenwick /////////////////////////
-    BITreeValue *FTree = FenTree_constructor(arr_xi, n);
+    //int arr_xi[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    //int n = sizeof(arr_xi)/sizeof(arr_xi[0]);
+
+    ////////////////////// Inicializacion del arbol de fenwick /////////////////////////
+    BITreeValue *FTree = FenTree_constructor(arr_xi, N);
     //////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////// Operaciones sobre el arbol de fenwick /////////////////////////
-    for( i = 0; i < m; i++ ){
+    for(i = 0; i < m; i++){
         cin >> op;
         if(op == 'c'){
             cin >> indx1 >> val ;
             //cout << "Cambio de valor: " << indx1 << ", " << val << endl;
-            changeValue(arr_xi, FTree, n, indx1, val);
+            changeValue(arr_xi, FTree, N, indx1, val);
         }else{
             cin >> indx1 >> indx2 ;
             //cout << "Consulta: " << indx1 << ", " << indx2 << endl;
@@ -194,6 +200,7 @@ int main()
     cout << querySignRange(arr_xi, FTree, 3, 5) <<"\n";
     */
 
+    delete[] arr_xi;
     delete[] FTree;
     return 0;
 }
