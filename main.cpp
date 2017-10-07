@@ -32,10 +32,19 @@ BITreeValue FenTree_Range(BITreeValue FenTree[],int val_arr[], int idx1, int idx
 {
     BITreeValue sum, aux;
 
+    // Si el indice 1 es mayor que el indice 2, hacemos un swap.
+    if(idx1 > idx2){
+        int idxAux = idx1;
+        idx1 = idx2;
+        idx2 = idxAux;
+    }
+
     sum = FenTree_Sum(FenTree, idx2);
     aux = FenTree_Sum(FenTree, idx1);
     sum.negatives -= aux.negatives;
     sum.zeroes -= aux.zeroes;
+
+    // Tomamos en cuenta el signo o el zero del indice 1.
     if(val_arr[idx1] < 0) sum.negatives++;
     if(val_arr[idx1] == 0) sum.zeroes++;
 
